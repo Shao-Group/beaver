@@ -34,8 +34,8 @@ int parse_parameters(int argc, const char ** argv)
 		}
 		if(string(argv[i]) == "-ic")
 		{
-				min_input_transcript_coverage = atof(argv[i + 1]);
-				i++;
+			min_input_transcript_coverage = atof(argv[i + 1]);
+			i++;
 		}
 		else if(string(argv[i]) == "-t")
 		{
@@ -81,6 +81,9 @@ int print_help()
 	printf("usage: scAletsch <input-gtf-list> <output-prefix> [options]\n");
 	printf("\n");
 	printf("options:\n");
-	printf(" %-14s  %s\n", "-t <integer>",  "number of threads");
+	printf(" %-14s  %s\n", "-t <integer>",  "Number of threads; default 1.");
+	printf(" %-14s  %s\n", "-c <double>",  "Minimum output coverage of transcripts; default 0.");
+	printf(" %-14s  %s\n", "-pn <integer>",  "Maximum number of paths per node; default 15.");
+	printf(" %-14s  %s\n", "-pg <integer>",  "Maximum number of paths per graph; default 100.");
 	return 0;	
 }

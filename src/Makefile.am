@@ -1,7 +1,7 @@
-bin_PROGRAMS=scAletsch
+bin_PROGRAMS=Beaver
 
-scAletsch_CPPFLAGS = -pthread -I$(top_srcdir)/lib/gtf -std=c++11
-scAletsch_LDFLAGS = -L$(top_builddir)/lib/gtf -pthread
-scAletsch_LDADD = -lgtf
+Beaver_CPPFLAGS = -pthread -I$(top_srcdir)/lib/gtf -std=c++11
+Beaver_LDFLAGS = -L$(top_builddir)/lib/gtf -pthread
+Beaver_LDADD = -lgtf
 
-scAletsch_SOURCES = genome1.h genome1.cc scAletsch.h scAletsch.cc config.h config.cc main.cc
+Beaver_SOURCES = genome1.h genome1.cc beaver.h beaver.cc config.h config.cc main.cc
