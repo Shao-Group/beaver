@@ -20,10 +20,10 @@ int main(int argc, const char **argv)
 
 	parse_parameters(argc, argv);
 
-        assert(argc >= 3);
-        Beaver prog;
-        prog.build_union1(argv[1]);
-        prog.link_merge(argv[2]);
+	assert(argc >= 3);
+	Beaver prog;
+	prog.build_union1(argv[1]);
+	prog.link_merge(argv[2]);
 
     return 0;
 }
