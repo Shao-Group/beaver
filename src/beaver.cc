@@ -1,5 +1,5 @@
 #include "genome1.h"
-#include "scAletsch.h"
+#include "beaver.h"
 #include "config.h"
 #include <string>
 #include <thread>
@@ -92,7 +92,7 @@ int solve_one_to_multiple_pair(map<string, set<string> > &sgp1, map<string, set<
 	return 0;
 }
 
-int scAletsch::build_union1(const string &file)
+int Beaver::build_union1(const string &file)
 {
 	vector<genome1> gv(num_threads);
 
@@ -133,7 +133,7 @@ int scAletsch::build_union1(const string &file)
 	return 0;
 }
 
-int scAletsch::build_union(const string &file)
+int Beaver::build_union(const string &file)
 {
 	vector<genome1> gv(num_threads);
 	vector< vector<string> > sv(num_threads);
@@ -172,7 +172,7 @@ int scAletsch::build_union(const string &file)
 	return 0;
 }
 
-int scAletsch::gene_pair(const string &file)
+int Beaver::gene_pair(const string &file)
 {
 	vector<string> sv;
 	gm1.clear();
@@ -246,7 +246,7 @@ int scAletsch::gene_pair(const string &file)
 	return 0;
 }
 
-int scAletsch::gene_distribution(vector<transcript> &vref)
+int Beaver::gene_distribution(vector<transcript> &vref)
 {
         map<string, int> glist; // <gid, # transcripts>
         map<string, int> gtype; // <gene_biotype, # genes in this biotype>
@@ -262,7 +262,7 @@ int scAletsch::gene_distribution(vector<transcript> &vref)
         return 0;
 }
 
-int scAletsch::gene_isoform_distribution(vector<transcript> &vref)
+int Beaver::gene_isoform_distribution(vector<transcript> &vref)
 {
 	printf("total number of transcripts: %ld\n", vref.size());
         map< string, map<string, int> > gcount;// <gene_biotype, <transcript_biotype, # transcripts>>
@@ -294,7 +294,7 @@ int scAletsch::gene_isoform_distribution(vector<transcript> &vref)
         return 0;
 }
 
-int scAletsch::gene_pair1(const string &file)
+int Beaver::gene_pair1(const string &file)
 {
         vector<string> sv;
         gm1.clear();
@@ -440,7 +440,7 @@ int scAletsch::gene_pair1(const string &file)
 	return 0;
 }
 
-int scAletsch::gene_pair_comb(const string &ref_file, const string &file)
+int Beaver::gene_pair_comb(const string &ref_file, const string &file)
 {
         vector<string> sv;
         gm1.clear();
@@ -474,7 +474,7 @@ int scAletsch::gene_pair_comb(const string &ref_file, const string &file)
 	return 0;
 }
 
-int scAletsch::intron_retention_filter(const string &file, const string &fo, const string &fo1)
+int Beaver::intron_retention_filter(const string &file, const string &fo, const string &fo1)
 {
         load_genome2(file.c_str(), &gm1);
 	bool if_ir = false;
@@ -576,7 +576,7 @@ int scAletsch::intron_retention_filter(const string &file, const string &fo, con
 	return 0;
 }
 
-int scAletsch::gene_pair_mb(const string &file)
+int Beaver::gene_pair_mb(const string &file)
 {
         vector<string> sv;
         gm1.clear();
@@ -675,7 +675,7 @@ int scAletsch::gene_pair_mb(const string &file)
 	return 0;
 }
 
-int scAletsch::gi_distribution(const string &file)
+int Beaver::gi_distribution(const string &file)
 {	
 	load_genome1(file.c_str(), &gm1);
 
@@ -688,7 +688,7 @@ int scAletsch::gi_distribution(const string &file)
 	return 0;
 	}
 
-int scAletsch::split_target_transcript_biotype(const string &file, const string &target_biotype)
+int Beaver::split_target_transcript_biotype(const string &file, const string &target_biotype)
 {
         load_genome1(file.c_str(), &gm1);
 
@@ -702,7 +702,7 @@ int scAletsch::split_target_transcript_biotype(const string &file, const string 
 
 }
 
-int scAletsch::split_coverage(const string &ifile, const string &dcov, const string &lfile, const string &rfile)
+int Beaver::split_coverage(const string &ifile, const string &dcov, const string &lfile, const string &rfile)
 {
 	load_genome_all(ifile.c_str(), &gm, 0);
 	
@@ -718,7 +718,7 @@ int scAletsch::split_coverage(const string &ifile, const string &dcov, const str
 	return 0;
 }
 
-int scAletsch::split_single(const string &file, const string &fo)
+int Beaver::split_single(const string &file, const string &fo)
 {
 	load_genome_all(file.c_str(), &gm, 0);
 	
@@ -3404,7 +3404,7 @@ int output_transcript(ofstream &fout, genome1 &gm, genome1 &gm1, const vector<in
 	int psize = p.size();
 
 	string chrm = gm.transcripts[p[0]].seqname.c_str();
-	string source = "scAletsch";
+	string source = "Beaver";
 	char strand = gm.transcripts[p[0]].strand;
 	string gid = gm.transcripts[p[0]].gene_id;
 	double coverage = gm.transcripts[p[0]].coverage;
@@ -3704,7 +3704,7 @@ int get_coverage_score(genome1 &gm, genome1 &gm2)
 	return 0;
 }
 
-int scAletsch::write_individual(const string &prefix)
+int Beaver::write_individual(const string &prefix)
 {
 	string sgtfPath = prefix + "_sgtf";
 	string cmd = "mkdir -p " + sgtfPath;
@@ -3722,7 +3722,7 @@ int scAletsch::write_individual(const string &prefix)
 	return 0;
 }
 
-int scAletsch::write_individual_feature(const string &prefix)
+int Beaver::write_individual_feature(const string &prefix)
 {
 	genome1 &meta_gm = gm;
 	genome1 &pre_gm = gm2;
@@ -3786,7 +3786,7 @@ int scAletsch::write_individual_feature(const string &prefix)
 	return 0;
 }
 
-int scAletsch::calculate_cell_specific_features(genome1 &ori_gm, genome1 &pre_gm, transcript &t, int cid, vector<double> & specific_features)
+int Beaver::calculate_cell_specific_features(genome1 &ori_gm, genome1 &pre_gm, transcript &t, int cid, vector<double> & specific_features)
 {
 	printf("\nCalculating specific features for %s", t.transcript_id.c_str());
 	specific_features.clear();
@@ -4294,9 +4294,9 @@ int addback_all_individuals(genome1& gm1, genome1& ori_gm)
 	return 0;
 }
 
-int scAletsch::link_merge(const string &prefix)
+int Beaver::link_merge(const string &prefix)
 {
-	printf("# transcripts loaded by scAletsch = %ld\n", gm.transcripts.size());
+	printf("# transcripts loaded by Beaver = %ld\n", gm.transcripts.size());
 	if(gm.transcripts.size() == 0) return 0;
 
 	/*
@@ -4447,7 +4447,7 @@ int scAletsch::link_merge(const string &prefix)
 	//fout.close();
 	
 	printf("# transcripts from individual: %ld\n", gm2.transcripts.size());	
-	// add back all individuals to the scAletschd set
+	// add back all individuals to the Beaverd set
 	addback_all_individuals(gm1, gm2);
 	printf("# transcripts after adding back all individuals: %ld\n", gm1.transcripts.size());
 	
@@ -4493,14 +4493,14 @@ int scAletsch::link_merge(const string &prefix)
 	return 0;
 }
 
-int scAletsch::rm_cover()
+int Beaver::rm_cover()
 {
 
 	remove_covered(gm, gm1);
 	return 0;
 }
 
-int scAletsch::meta_vote(const string &prefix)
+int Beaver::meta_vote(const string &prefix)
 {
 	printf("# transcripts loaded by meta-vote = %ld\n", gm.transcripts.size());
 
@@ -4523,7 +4523,7 @@ int scAletsch::meta_vote(const string &prefix)
         return 0;
 }
 
-int scAletsch::group_vote(const string &glist, const string &prefix)
+int Beaver::group_vote(const string &glist, const string &prefix)
 {
 	build_union1(glist);
 	string ofile = prefix;
@@ -4556,7 +4556,7 @@ void print_vector(vector<vector<double> > two_D_vector)
 }
 
 
-int scAletsch::filter_junction(const string &fi, const string &fo)
+int Beaver::filter_junction(const string &fi, const string &fo)
 {
 	load_genome_all(fi.c_str(), &gm, 0);
 
@@ -4672,7 +4672,7 @@ bool if_right_chain_match(vector<PI32> exons1, vector<PI32> exons2)
 }
 
 
-int scAletsch::split_empty(const string &fi)
+int Beaver::split_empty(const string &fi)
 {
 	gm1 = gm;
 	gm.clear();
@@ -4738,7 +4738,7 @@ int scAletsch::split_empty(const string &fi)
 	return 0;
 }
 
-int scAletsch::split_support_cell(const string &prefix)
+int Beaver::split_support_cell(const string &prefix)
 {
 	map<int, vector<int> > X;
 
@@ -4761,7 +4761,7 @@ int scAletsch::split_support_cell(const string &prefix)
 	return 0;
 }
 
-int scAletsch::split_match(const string &fi)
+int Beaver::split_match(const string &fi)
 {
 	load_genome_all(fi.c_str(), &gm1, 0);
 
@@ -4833,7 +4833,7 @@ bool is_boundary_covered(set<int32_t> &bl1, set<int32_t> &bl2)
 	return if_covered;
 }
 
-int scAletsch::filter_boundary(const string &fi, const string &fo)
+int Beaver::filter_boundary(const string &fi, const string &fo)
 {
 	load_genome_all(fi.c_str(), &gm, 0);
 
@@ -4870,7 +4870,7 @@ int scAletsch::filter_boundary(const string &fi, const string &fo)
 	return 0;
 }
 
-int scAletsch::write_union(const string &fo)
+int Beaver::write_union(const string &fo)
 {
 	for(int i = 0; i < gm.transcripts.size(); i++)
 	{

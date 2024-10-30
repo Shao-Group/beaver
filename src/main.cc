@@ -5,7 +5,7 @@
 #include <iostream>
 #include <cassert>
 
-#include "scAletsch.h"
+#include "beaver.h"
 #include "config.h"
 
 using namespace std;
@@ -21,7 +21,7 @@ int main(int argc, const char **argv)
 	parse_parameters(argc, argv);
 
         assert(argc >= 3);
-        scAletsch prog;
+        Beaver prog;
         prog.build_union1(argv[1]);
         prog.link_merge(argv[2]);
 

@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.63])
-AC_INIT(scAletsch, 0.0.1, qzs23@psu.edu)
+AC_INIT(Beaver, 0.0.1, qzs23@psu.edu)
 AM_INIT_AUTOMAKE()
 AC_CONFIG_SRCDIR([src/main.cc])
 AC_CONFIG_HEADERS([config.h])
@@ -27,9 +27,9 @@ AC_TYPE_SIZE_T
 # Checks for library functions.
 AC_CHECK_FUNCS([sqrt])
 
-AC_CONFIG_FILES([Makefile
-		 src/Makefile
-                 lib/Makefile
-		 lib/gtf/Makefile
-                 lib/util/Makefile])
+AC_CONFIG_FILES([Makefile 
+        src/Makefile 
+        lib/Makefile
+		lib/gtf/Makefile
+        lib/util/Makefile])
 AC_OUTPUT

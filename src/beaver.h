@@ -14,7 +14,7 @@ int solve_one_to_multiple_pair(map<string, set<string> > &sgp1, map<string, set<
 int add_in_and_out_edge(transcript &t1, transcript &t2);
 string empty_side(transcript &t);
 
-class scAletsch
+class Beaver
 {
 public:
 	genome1 gm;
