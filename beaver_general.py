@@ -11,14 +11,14 @@ import numpy as np
 def parse_arguments():
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(description='Score transcripts using pre-trained Beaver-General model')
+    parser.add_argument('-n', '--sample_size', type=int, required=True,
+                      help='Number of cells in the dataset')
     parser.add_argument('-i', '--input', required=True, 
                       help='Input general feature CSV file')
     parser.add_argument('-m', '--model', required=True,
                       help='Path to the pre-trained model file for scoring')
-    parser.add_argument('-n', '--sample_size', type=int, required=True,
-                      help='Number of cells in the dataset')
     parser.add_argument('-o', '--output', required=True,
-                      help='Output directory')
+                      help='Output Name of General Feature CSV file')
     parser.add_argument('-p', '--probability', type=float, default=0.2,
                       help='Minimum probability score threshold (range: 0 to 1)')
     
@@ -135,31 +135,22 @@ def process_general_feature_file(feature_file, sample_size):
 
 def score_general_transcripts(df, model, prob_threshold):
     """Score transcripts using the pre-trained model."""
-    # Select feature columns (excluding transcript_id and chr)
+    # Select feature columns
     feature_cols = df.columns[2:]
     
     # Get probability scores
     probabilities = model.predict_proba(df[feature_cols])[:, 1]
     
+    # Add probability scores to the original DataFrame
+    df['general_prob'] = probabilities
+    
     # Filter results based on probability threshold
-    mask = probabilities >= prob_threshold
-    filtered_df = df[mask].copy()
-    filtered_probabilities = probabilities[mask]
+    filtered_df = df[df['general_prob'] >= prob_threshold].copy()
     
-    # Create results DataFrame with only transcripts that pass threshold
-    results = pd.DataFrame({
-        'transcript_id': filtered_df['transcript_id'],
-        'chr': filtered_df['chr'],
-        'probability_score': filtered_probabilities
-    })
-    
-    return results
+    return filtered_df
 
 def main():
     args = parse_arguments()
-    
-    # Create output directory
-    os.makedirs(args.output, exist_ok=True)
     
     # Load pre-trained model
     print(f"Loading pre-trained model from {args.model}")
@@ -170,25 +161,19 @@ def main():
     df = process_general_feature_file(args.input, args.sample_size)
     print(f"Processed {len(df)} transcripts")
     
-    # Save processed features
-    features_file = os.path.join(args.output, "general_features.csv")
-    df.to_csv(features_file, index=False)
-    print(f"Saved processed features to {features_file}")
-    
-    # Score transcripts
+    # Score and filter transcripts
     print("Scoring transcripts...")
-    results = score_general_transcripts(df, model, args.probability)
+    scored_df = score_general_transcripts(df, model, args.probability)
     
     # Save results
-    output_file = os.path.join(args.output, "beaver_general_scores.csv")
-    results.to_csv(output_file, index=False)
-    print(f"Saved scoring results to {output_file}")
+    scored_df.to_csv(args.output, index=False)
+    print(f"Saved scoring results to {args.output}")
     
     # Print summary statistics
     print("\nScoring Summary:")
     print(f"Total transcripts processed: {len(df)}")
-    print(f"Transcripts passing threshold: {len(results)}")
-    print(f"Transcripts filtered out: {len(df) - len(results)}")
+    print(f"Transcripts passing threshold: {len(scored_df)}")
+    print(f"Transcripts filtered out: {len(df) - len(scored_df)}")
     print(f"Using probability threshold: {args.probability}")
 
 if __name__ == "__main__":
