@@ -95,13 +95,13 @@ Required Python libraries: numPy, pandas, scikit-learn, joblib
 ## Beaver_General Usage
 
 ```bash
-python3 beaver_general.py -n <num_cells> -i <general_transcript_feature_csv> -m <pretrained_general_model.joblib> -p <min_probability_score> -o <output_general_dir>
+python3 beaver_general.py -n <num_cells> -i <general_transcript_feature_csv> -m <pretrained_general_model.joblib> -o <general_features>
 ```
 
 | Parameter | Type    | Default | Description                                                  |
 | --------- | ------- | ------- | ------------------------------------------------------------ |
 | -i        | String  |         | Input general feature CSV file; e.g. `{output-prefix}_feature.csv`. |
-| -m        | String  |         | Path to the pre-trained model file for scoring.              |
+| -m        | String  |         | Path to the pre-trained general model file for scoring.      |
 | -n        | Integer |         | Number of cells/samples.                                     |
 | -o        | String  |         | Output directory.                                            |
 | -p        | Float   | 0.2     | Minimum probability score threshold (range: 0 to 1).         |
@@ -109,18 +109,18 @@ python3 beaver_general.py -n <num_cells> -i <general_transcript_feature_csv> -m 
 ## Beaver_Specific Usage
 
 ```
-python3 beaver_specific.py -i <specific_transcript_feature_dir> -g <output_general_dir> -m <pretrained_specific_model.joblib> -p <min_probability_score> -o <output_specific_dir>
+python3 beaver_specific.py -n <num_cells> -i <specific_transcript_feature_dir> -g <general_features> -m <pretrained_specific_model.joblib> -o <output_specific_dir>
 ```
 
 | Parameter | Type    | Default | Description                                                  |
 | --------- | ------- | ------- | ------------------------------------------------------------ |
-| -i        | String  |         | Input specific feature directory.                            |
-| -m        | String  |         | Path to the pre-trained model file for scoring.              |
+| -i        | String  |         | Input cell-specific feature directory.                       |
+| -m        | String  |         | Path to the pre-trained specific model file for scoring.     |
 | -n        | Integer |         | Number of cells/samples.                                     |
+| -g        | String  |         | CSV file of  Beaver-General's features.                      |
 | -o        | String  |         | Output directory.                                            |
 | -p        | String  | 0.6     | Minimum **specific** probability score threshold (range: 0 to 1). |
 | -pg       | String  | 0.2     | Minimum **general** probability score threshold (range: 0 to 1). |
-| -g        | String  |         | Directory of  Beaver-General's results; feed into Beaver-Specific. |
 | -s        | -       |         | Save processed specific feature files in the output directory. |
 
 ## Example
