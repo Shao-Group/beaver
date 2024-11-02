@@ -25,7 +25,7 @@ automake -a    # Generate Makefile.in
 Configure and compile:
 
 ```bash
-/configure    # Generate Makefile
+./configure    # Generate Makefile
 make          # Compile the source code
 ```
 
@@ -108,6 +108,7 @@ python3 Beaver_Specific.py -i <specific_transcript_feature_dir> -g <output_gener
 | --------- | ------ | ------- | ------------------------------------------------------------ |
 | -i        | String |         | Input general feature CSV file or input specific feature directory |
 | -m        | String |         | Path to the pre-trained model file for scoring.              |
+| -n        | Integer |         | Number of cells/samples.              |
 | -o        | String |         | Output directory                                             |
 | -p        | String | 0.2     | Minimum probability score threshold (range: 0 to 1).         |
 | -s        |        |         | Save processed feature files and estimated scores in the output directory. |
@@ -118,10 +119,10 @@ python3 Beaver_Specific.py -i <specific_transcript_feature_dir> -g <output_gener
 Here is an example to run the scoring pipeline:
 
 ```
-python3 Beaver_General.py -s -i ../sample_data/beaver_test_feature.csv -m model_real_HEK293T_meta_roc=0.824.joblib -p 0.2 -o ../sample_data/beaver_test_general
+python3 beaver_general.py -s -n 2 -i sample_data/beaver_test_feature.csv -m model_real_HEK293T_meta_roc=0.824.joblib -p 0.2 -o sample_data/beaver_test_general
 ```
 
 ```
-python3 Beaver_Specific.py -s -i ../sample_data/beaver_test_sgtf -m model_real_HEK293T_specific_roc=0.796.joblib -p 0.6 -o ../sample_data/beaver_test_specific
+python3 beaver_specific.py -s -n 2 -i sample_data/beaver_test_sgtf -m model_real_HEK293T_specific_roc=0.796.joblib -p 0.6 -o sample_data/beaver_test_specific
 ```
 
