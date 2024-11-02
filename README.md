@@ -103,7 +103,7 @@ python3 beaver_general.py -n <num_cells> -i <general_transcript_feature_csv> -m 
 | -i        | String  |         | Input general feature CSV file; e.g. `{output-prefix}_feature.csv`. |
 | -m        | String  |         | Path to the pre-trained general model file for scoring.      |
 | -n        | Integer |         | Number of cells/samples.                                     |
-| -o        | String  |         | Output directory.                                            |
+| -o        | String  |         | Output Beaver-General features CSV file.                                            |
 | -p        | Float   | 0.2     | Minimum probability score threshold (range: 0 to 1).         |
 
 ## Beaver_Specific Usage
@@ -117,7 +117,7 @@ python3 beaver_specific.py -n <num_cells> -i <specific_transcript_feature_dir> -
 | -i        | String  |         | Input cell-specific feature directory.                       |
 | -m        | String  |         | Path to the pre-trained specific model file for scoring.     |
 | -n        | Integer |         | Number of cells/samples.                                     |
-| -g        | String  |         | CSV file of  Beaver-General's features.                      |
+| -g        | String  |         | Beaver-General features CSV file.                      |
 | -o        | String  |         | Output directory.                                            |
 | -p        | String  | 0.6     | Minimum **specific** probability score threshold (range: 0 to 1). |
 | -pg       | String  | 0.2     | Minimum **general** probability score threshold (range: 0 to 1). |
