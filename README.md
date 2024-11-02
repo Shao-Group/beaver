@@ -78,6 +78,7 @@ Beaver employs a two-stage Random Forest pipeline (`Beaver_General` and `Beaver_
 
 ## Dependencies
 
+Python version tested: Python 3.11.7
 Required Python libraries: numPy, pandas, scikit-learn, joblib
 
 - Using pip:
@@ -108,7 +109,7 @@ python3 beaver_general.py -n <num_cells> -i <general_transcript_feature_csv> -m 
 
 ## Beaver_Specific Usage
 
-```
+```bash
 python3 beaver_specific.py -n <num_cells> -i <specific_transcript_feature_dir> -g <general_features> -m <pretrained_specific_model.joblib> -o <output_specific_dir>
 ```
 
